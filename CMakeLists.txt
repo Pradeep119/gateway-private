@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 3.20)
+project(gateway)
+set(CMAKE_CXX_STANDARD 20)
+
+add_compile_definitions(ENABLE_METRICS_PREVIEW)
+
+include_directories(~/development/axp/nextgen/3rdparty/include ~/development/axp/nextgen/3rdparty/include/uSockets/ ~/development/axp/nextgen/include/)
+link_directories(~/development/axp/nextgen/3rdparty/lib ~/development/axp/nextgen/lib)
+
+add_executable(gateway main.cpp stages/configurator/configurator_tcp_server_stage.h services/configurator/configuration_message.h services/configurator/configurator_service.h services/configurator/configuration_command_handler.h services/configurator/config_handlers/add_route_handler.h services/configurator/config_handlers/add_key_value_handler.h services/configurator/config_handlers/cxxopts_configuration_command_handler_base.h services/configurator/config_handlers/add_to_list_handler.h http_processing/http_request_pipeline.h stages/unwrap_stage.h http_processing/http_request_pipeline.cpp generic_message_factory.h services/configurator/config_handlers/add_throttler_handler.h services/observability/observability_service.h services/observability/observability_service.cpp services/configurator/config_handlers/add_to_set_handler.h http_processing/validator_definitions.h http_processing/jwt_validation_defs.h)
+target_link_libraries(gateway core pthread uSockets z ssl crypto dl opentelemetry_common opentelemetry_version opentelemetry_resources opentelemetry_proto opentelemetry_trace opentelemetry_otlp_recordable opentelemetry_exporter_ostream_span opentelemetry_zpages opentelemetry_exporter_otlp_grpc opentelemetry_exporter_otlp_http http_client_curl opentelemetry_metrics opentelemetry_exporter_ostream_metrics)
+
